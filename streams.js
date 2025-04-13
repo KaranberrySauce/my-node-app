@@ -5,9 +5,12 @@ const readStream = fs.createReadStream("./docs/blog3.txt", {
 });
 const writeStream = fs.createWriteStream("./docs/blog4.txt");
 
-readStream.on("data", (chunk) => {
-  console.log("--------- NEW CHUNK ----------");
-  console.log(chunk);
-  writeStream.write("\nNEWCHUNK\n");
-  writeStream.write(chunk);
-});
+// readStream.on("data", (chunk) => {
+//   console.log("--------- NEW CHUNK ----------");
+//   console.log(chunk);
+//   writeStream.write("\nNEWCHUNK\n");
+//   writeStream.write(chunk);
+// });
+
+//piping
+readStream.pipe(writeStream);
