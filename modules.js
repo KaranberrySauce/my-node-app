@@ -1,8 +1,8 @@
-const { log } = require("console");
-const { people, ages } = require("./people");
+// const { log } = require("console");
+// const { people, ages } = require("./people");
 
-console.log(people, ages);
+// console.log(people, ages);
 
-const os = require("os");
+// const os = require("os");
 
-console.log(os.platform(), os.homedir());
+// console.log(os.platform(), os.homedir());
