@@ -4,9 +4,11 @@ const server = http.createServer((req, res) => {
   console.log(req.url, req.method);
 
   //set header content type
-  res.setHeader("Content-Type", "text/plain");
+  res.setHeader("Content-Type", "text/html");
 
-  res.write("Hello everyone!");
+  res.write('<head><link rel="stylesheet" href="#"></head>');
+  res.write("<p>Hello everyone!</p>");
+  res.write("<p>Goodbye everyone!</p>");
   res.end();
 });
 
