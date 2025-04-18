@@ -10,7 +10,25 @@ app.set("view engine", "ejs");
 app.listen(3000);
 
 app.get("/", (req, res) => {
-  res.render("index", { title: "Home" });
+  const blogs = [
+    {
+      title: "Here is blog 1",
+      snippet: "This is the first blog of the website. Enjoy",
+    },
+    {
+      title: "Here is blog 2",
+      snippet: "This is the second blog of the website. Enjoy",
+    },
+    {
+      title: "Here is blog 3",
+      snippet: "This is the third blog of the website. Enjoy",
+    },
+    {
+      title: "Here is blog 4",
+      snippet: "This is the fourth blog of the website. Enjoy",
+    },
+  ];
+  res.render("index", { title: "Home", blogs });
 });
 
 app.get("/about", (req, res) => {
