@@ -9,6 +9,14 @@ app.set("view engine", "ejs");
 //listen for requests
 app.listen(3000);
 
+app.use((req, res, next) => {
+  console.log("New request made");
+  console.log("host: ", req.hostname);
+  console.log("path: ", req.path);
+  console.log("method: ", req.method);
+  next();
+});
+
 app.get("/", (req, res) => {
   const blogs = [
     {
@@ -29,6 +37,11 @@ app.get("/", (req, res) => {
     },
   ];
   res.render("index", { title: "Home", blogs });
+});
+
+app.use((req, res, next) => {
+  console.log("In the next middleware.");
+  next();
 });
 
 app.get("/about", (req, res) => {
