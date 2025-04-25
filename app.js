@@ -1,13 +1,14 @@
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
+const Blog = require("./models/blog");
 
 //express app
 const app = express();
 
 //connect to MongoDB
 const dbURI =
-  "mongodb+srv://karanberry1:abcd12345@nodetuts.yndapyi.mongodb.net/?retryWrites=true&w=majority&appName=NodeTuts";
+  "mongodb+srv://karanberry1:abcd12345@nodetuts.yndapyi.mongodb.net/NodeTuts?retryWrites=true&w=majority&appName=NodeTuts";
 mongoose
   .connect(dbURI)
   .then((result) => app.listen(3000))
@@ -20,6 +21,24 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(morgan("dev"));
 
+//mongoose and mongo sandbox routes
+app.get("/add-blog", (req, res) => {
+  const blog = new Blog({
+    title: "New blog 2",
+    snippet: "About my new blog",
+    body: "More about my new blog",
+  });
+  blog
+    .save()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+//routes
 app.get("/", (req, res) => {
   const blogs = [
     {
