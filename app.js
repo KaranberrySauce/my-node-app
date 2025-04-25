@@ -21,68 +21,28 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(morgan("dev"));
 
-//mongoose and mongo sandbox routes
-app.get("/add-blog", (req, res) => {
-  const blog = new Blog({
-    title: "New blog 2",
-    snippet: "About my new blog",
-    body: "More about my new blog",
-  });
-  blog
-    .save()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.get("/all-blogs", (req, res) => {
-  Blog.find()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.get("/single-blog", (req, res) => {
-  Blog.findById("680add3587f0548fb5632722")
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
 //routes
 app.get("/", (req, res) => {
-  const blogs = [
-    {
-      title: "Here is blog 1",
-      snippet: "This is the first blog of the website. Enjoy",
-    },
-    {
-      title: "Here is blog 2",
-      snippet: "This is the second blog of the website. Enjoy",
-    },
-    {
-      title: "Here is blog 3",
-      snippet: "This is the third blog of the website. Enjoy",
-    },
-    {
-      title: "Here is blog 4",
-      snippet: "This is the fourth blog of the website. Enjoy",
-    },
-  ];
-  res.render("index", { title: "Home", blogs });
+  res.redirect("/blogs");
 });
 
 app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
+});
+
+//blog routes
+app.get("/blogs", (req, res) => {
+  Blog.find()
+    .sort({ createdAt: -1 })
+    .then((result) => {
+      res.render("index", {
+        title: "All blogs",
+        blogs: result,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 app.get("/blogs/create", (req, res) => {
