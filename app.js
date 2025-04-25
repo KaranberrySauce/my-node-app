@@ -10,14 +10,11 @@ const dbURI =
   "mongodb+srv://karanberry1:abcd12345@nodetuts.yndapyi.mongodb.net/?retryWrites=true&w=majority&appName=NodeTuts";
 mongoose
   .connect(dbURI)
-  .then(() => console.log("connected to db"))
+  .then((result) => app.listen(3000))
   .catch((err) => console.log(err));
 
 //register view engine
 app.set("view engine", "ejs");
-
-//listen for requests
-app.listen(3000);
 
 //middleware & static files
 app.use(express.static("public"));
