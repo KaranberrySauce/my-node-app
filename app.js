@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const Blog = require("./models/blog");
+const { result } = require("lodash");
 
 //express app
 const app = express();
@@ -19,6 +20,7 @@ app.set("view engine", "ejs");
 
 //middleware & static files
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true })); //takes all the url encoded data and passes it on as an object
 app.use(morgan("dev"));
 
 //routes
@@ -39,6 +41,19 @@ app.get("/blogs", (req, res) => {
         title: "All blogs",
         blogs: result,
       });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.post("/blogs", (req, res) => {
+  const blog = new Blog(req.body);
+
+  blog
+    .save()
+    .then((result) => {
+      res.redirect("/blogs");
     })
     .catch((err) => {
       console.log(err);
