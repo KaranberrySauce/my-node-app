@@ -38,6 +38,16 @@ app.get("/add-blog", (req, res) => {
     });
 });
 
+app.get("/all-blogs", (req, res) => {
+  Blog.find()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 //routes
 app.get("/", (req, res) => {
   const blogs = [
