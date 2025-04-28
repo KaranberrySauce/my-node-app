@@ -26,6 +26,13 @@ const blog_details = (req, res) => {
     });
 };
 
+const blog_create_get = (req, res) => {
+  res.render("create", { title: "Create New Blog" });
+};
+
 module.exports = {
-  blog_index, blog_details, 
+  blog_index,
+  blog_details,
+  blog_create_get,
+  
 };

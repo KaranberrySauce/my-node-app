@@ -17,9 +17,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.get("/create", (req, res) => {
-  res.render("create", { title: "Create New Blog" });
-});
+router.get("/create", blogController.blog_create_get);
 
 router.get("/:id", blogController.blog_details);
 
