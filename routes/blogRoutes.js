@@ -1,20 +1,8 @@
 const express = require("express");
-const Blog = require("../models/blog");
+const blogController = require("../controllers/blogController");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  Blog.find()
-    .sort({ createdAt: -1 })
-    .then((result) => {
-      res.render("index", {
-        title: "All blogs",
-        blogs: result,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+router.get("/", blogController.blog_index);
 
 router.post("/", (req, res) => {
   const blog = new Blog(req.body);
